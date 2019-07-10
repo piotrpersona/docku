@@ -20,8 +20,8 @@ func Upload(imagesMetadata *config.ImagesMetadata) {
 	wg.Add(len(imagesMetadata.Images))
 	registry := imagesMetadata.Registry
 	for imageName, imageMeta := range imagesMetadata.Images {
-		sourceImage := imageURL(imageMeta.Registry, imageName, imageMeta.Tag)
-		destinationImage := imageURL(registry, imageName, imageMeta.Tag)
+		sourceImage := ImageURL(imageMeta.Registry, imageName, imageMeta.Tag)
+		destinationImage := ImageURL(registry, imageName, imageMeta.Tag)
 		go uploadImage(sourceImage, destinationImage, &wg)
 	}
 	wg.Wait()
