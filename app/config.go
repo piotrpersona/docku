@@ -7,8 +7,7 @@ import (
 	"github.com/piotrpersona/docker-upload/config"
 )
 
-func parseConfig() *config.ImagesMetadata {
-	configPath := os.Args[1]
+func parseConfig(configPath string) *config.ImagesMetadata {
 	imagesMetadata, err := config.Read(configPath)
 	if err != nil {
 		fmt.Printf("There was an error while reading: %s", configPath)

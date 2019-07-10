@@ -1,7 +1,9 @@
 package main
 
-import "github.com/piotrpersona/docker-upload/app"
+import (
+	"github.com/piotrpersona/docker-upload/cmd"
+)
 
 func main() {
-	app.Run()
+	cmd.Execute()
 }
