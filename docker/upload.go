@@ -8,11 +8,9 @@ import (
 
 func uploadImage(sourceImageName, destinationImageName string, wg *sync.WaitGroup) {
 	defer wg.Done()
-	pullImageMeasured := measureTime(pull)
-	pushImageMeasured := measureTime(push)
-	sourceImage := pullImageMeasured(sourceImageName)
+	sourceImage := pull(sourceImageName)
 	destinationImage := tag(sourceImage, destinationImageName)
-	pushImageMeasured(destinationImage)
+	push(destinationImage)
 }
 
 func Upload(imagesMetadata *config.ImagesMetadata) {
