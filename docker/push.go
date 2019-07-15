@@ -1,15 +1,21 @@
 package docker
 
 import (
+	"context"
 	"fmt"
-	"math/rand"
-	"time"
+
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/client"
 )
 
-func push(image string) string {
+func push(cli client.APIClient, image string) (imageName string, err error) {
+	imageName = image
 	fmt.Printf("Pushing image %s\n", image)
-	sleep := rand.Intn(800)
-	time.Sleep(time.Millisecond * time.Duration(sleep))
+	readCloser, err := cli.ImagePush(context.Background(), image, types.ImagePushOptions{})
+	if err != nil {
+		return
+	}
+	defer readCloser.Close()
 	fmt.Printf("Push done: %s\n", image)
-	return image
+	return
 }

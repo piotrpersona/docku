@@ -20,7 +20,11 @@ func uploadImage(cli client.APIClient, sourceImageName, destinationImageName str
 		fmt.Println(err)
 		fmt.Printf("There was an error while tagging: %s with %s\n", sourceImageName, destinationImage)
 	}
-	push(destinationImage)
+	image, err := push(cli, destinationImage)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Printf("There was an error while pushing: %s\n", image)
+	}
 }
 
 func Upload(cli client.APIClient, imagesMetadata *config.ImagesMetadata) {
