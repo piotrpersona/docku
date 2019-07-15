@@ -15,7 +15,11 @@ func uploadImage(cli client.APIClient, sourceImageName, destinationImageName str
 		fmt.Println(err)
 		fmt.Printf("There was an error while pulling: %s\n", sourceImageName)
 	}
-	destinationImage := tag(sourceImage, destinationImageName)
+	destinationImage, err := tag(cli, sourceImage, destinationImageName)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Printf("There was an error while tagging: %s with %s\n", sourceImageName, destinationImage)
+	}
 	push(destinationImage)
 }
 
