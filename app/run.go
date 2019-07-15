@@ -9,6 +9,7 @@ import (
 func Run(configPath string) {
 	imagesMetadata := parseConfig(configPath)
 	start := time.Now()
-	docker.Upload(imagesMetadata)
+	dockercli := docker.Client()
+	docker.Upload(dockercli, imagesMetadata)
 	report(start)
 }
