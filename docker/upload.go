@@ -8,22 +8,22 @@ import (
 	"github.com/piotrpersona/docker-upload/config"
 )
 
-func uploadImage(cli client.APIClient, sourceImageName, destinationImageName string, wg *sync.WaitGroup) {
+func uploadImage(cli client.APIClient, sourceImage, destinationImage string, wg *sync.WaitGroup) {
 	defer wg.Done()
-	sourceImage, err := pull(cli, sourceImageName)
+	err := pull(cli, sourceImage)
 	if err != nil {
 		fmt.Println(err)
-		fmt.Printf("There was an error while pulling: %s\n", sourceImageName)
+		fmt.Printf("There was an error while pulling: %s\n", sourceImage)
 	}
-	destinationImage, err := tag(cli, sourceImage, destinationImageName)
+	err = tag(cli, sourceImage, destinationImage)
 	if err != nil {
 		fmt.Println(err)
-		fmt.Printf("There was an error while tagging: %s with %s\n", sourceImageName, destinationImage)
+		fmt.Printf("There was an error while tagging: %s with %s\n", sourceImage, destinationImage)
 	}
-	image, err := push(cli, destinationImage)
+	err = push(cli, destinationImage)
 	if err != nil {
 		fmt.Println(err)
-		fmt.Printf("There was an error while pushing: %s\n", image)
+		fmt.Printf("There was an error while pushing: %s\n", destinationImage)
 	}
 }
 

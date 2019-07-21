@@ -8,10 +8,11 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func push(cli client.APIClient, image string) (imageName string, err error) {
-	imageName = image
+func push(cli client.APIClient, image string) (err error) {
 	fmt.Printf("Pushing image %s\n", image)
-	readCloser, err := cli.ImagePush(context.Background(), image, types.ImagePushOptions{})
+	readCloser, err := cli.ImagePush(context.Background(), image, types.ImagePushOptions{
+		All: true,
+	})
 	if err != nil {
 		return
 	}
