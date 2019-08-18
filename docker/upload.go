@@ -8,6 +8,12 @@ import (
 	"github.com/piotrpersona/docker-upload/config"
 )
 
+type imageUploadLog struct {
+	sourceName, targetName string
+	stream                 uploadStream
+	err                    dockerError
+}
+
 type dockerError struct {
 	push, tag, pull string
 }
@@ -20,8 +26,7 @@ func uploadImage(
 	cli client.APIClient, sourceImage,
 	destinationImage string,
 	wg *sync.WaitGroup,
-	streamBuffer chan uploadStream,
-	errorBuffer chan dockerError,
+	uploadLog chan imageUploadLog,
 ) {
 	defer wg.Done()
 	dockerErr := dockerError{}
@@ -41,34 +46,33 @@ func uploadImage(
 		pull: string(pullStream),
 		push: string(pushStream),
 	}
-	streamBuffer <- streamLog
-	errorBuffer <- dockerErr
+	uploadLog <- imageUploadLog{
+		sourceName: sourceImage,
+		targetName: destinationImage,
+		stream:     streamLog,
+		err:        dockerErr,
+	}
 }
 
-func logUpload(streamBuffer chan uploadStream, errorBuffer chan dockerError) {
-	for err := range errorBuffer {
-		fmt.Println(err)
-	}
-	for stream := range streamBuffer {
-		fmt.Println(stream)
+func logUpload(uploadLog chan imageUploadLog) {
+	for log := range uploadLog {
+		fmt.Println(log)
 	}
 }
 
 func Upload(cli client.APIClient, imagesMetadata *config.ImagesMetadata) {
 	var wg sync.WaitGroup
 	numberOfTasks := len(imagesMetadata.Images)
-	streamBuffer := make(chan uploadStream, numberOfTasks)
-	errorBuffer := make(chan dockerError, numberOfTasks)
+	uploadLog := make(chan imageUploadLog, numberOfTasks)
 	wg.Add(numberOfTasks)
 	registry := imagesMetadata.Registry
 	for imageName, imageMeta := range imagesMetadata.Images {
 		sourceImage := ImageURL(imageMeta.Registry, imageName, imageMeta.Tag)
 		destinationImage := ImageURL(registry, imageName, imageMeta.Tag)
 		go uploadImage(
-			cli, sourceImage, destinationImage, &wg, streamBuffer, errorBuffer)
+			cli, sourceImage, destinationImage, &wg, uploadLog)
 	}
 	wg.Wait()
-	close(streamBuffer)
-	close(errorBuffer)
-	logUpload(streamBuffer, errorBuffer)
+	close(uploadLog)
+	logUpload(uploadLog)
 }
