@@ -3,20 +3,27 @@ package docker
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 )
 
-func push(cli client.APIClient, image string) (err error) {
+func push(cli client.APIClient, image string) (stream []byte, err error) {
 	fmt.Printf("Pushing image %s\n", image)
-	readCloser, err := cli.ImagePush(context.Background(), image, types.ImagePushOptions{
-		All: true,
-	})
+	streamReader, err := cli.ImagePush(context.Background(), image,
+		types.ImagePushOptions{
+			All:          true,
+			RegistryAuth: "123",
+		})
 	if err != nil {
 		return
 	}
-	defer readCloser.Close()
+	defer streamReader.Close()
+	stream, err = ioutil.ReadAll(streamReader)
+	if err != nil {
+		return
+	}
 	fmt.Printf("Push done: %s\n", image)
 	return
 }
