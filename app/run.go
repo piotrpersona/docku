@@ -3,7 +3,7 @@ package app
 import (
 	"time"
 
-	"github.com/piotrpersona/docker-upload/docker"
+	"github.com/piotrpersona/docku/docker"
 )
 
 func Run(configPath string) {

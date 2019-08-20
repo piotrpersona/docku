@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/piotrpersona/docker-upload/cmd"
+	"github.com/piotrpersona/docku/cmd"
 )
 
 func main() {

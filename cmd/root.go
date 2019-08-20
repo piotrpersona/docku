@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/piotrpersona/docker-upload/app"
+	"github.com/piotrpersona/docku/app"
 	"github.com/spf13/cobra"
 )
 

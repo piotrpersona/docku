@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/docker/docker/client"
-	"github.com/piotrpersona/docker-upload/config"
+	"github.com/piotrpersona/docku/config"
 )
 
 type imageUploadLog struct {

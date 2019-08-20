@@ -3,7 +3,7 @@ package docker_test
 import (
 	"testing"
 
-	"github.com/piotrpersona/docker-upload/docker"
+	"github.com/piotrpersona/docku/docker"
 )
 
 var testCases = []struct {

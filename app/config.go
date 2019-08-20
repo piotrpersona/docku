@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/piotrpersona/docker-upload/config"
+	"github.com/piotrpersona/docku/config"
 )
 
 func parseConfig(configPath string) *config.ImagesMetadata {
