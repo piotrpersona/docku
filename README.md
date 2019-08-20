@@ -7,6 +7,27 @@ Upload images to remote registry at the speed of light ⚡️
 
 ![docku-arch](https://raw.githubusercontent.com/piotrpersona/docku/master/svg/docku-arch.svg?sanitize=true)
 
+## Installation
+
+Download latest release from:
+https://github.com/piotrpersona/docku/releases
+
+## Run
+
+```bash
+docku config.json
+```
+
+Docker (TBD)
+
+```bash
+docker run \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    --volume "${config}:/config.json" \
+    --network host \
+    piotrpersona/docku config.json "${@}"
+```
+
 ## Configuration
 
 Provide images config
@@ -26,20 +47,3 @@ Provide images config
   }
 }
 ```
-
-## Run
-
-Docker
-
-```bash
-docker run \
-    --volume /var/run/docker.sock:/var/run/docker.sock \
-    --volume "${config}:/config.json" \
-    --network host \
-    piotrpersona/docku config.json "${@}"
-```
-
-## Installation
-
-* docker
-* as a package (TBD)
