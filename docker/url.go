@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// ImageURL will trim redundant character from Image URL.
 func ImageURL(registry, name, tag string) string {
 	validRegistry := strings.TrimRight(registry, "/")
 	validName := strings.TrimRight(strings.TrimLeft(name, "/"), ":")

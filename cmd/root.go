@@ -19,6 +19,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+// Execute will start docku application.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

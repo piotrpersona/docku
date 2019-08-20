@@ -60,6 +60,7 @@ func logUpload(uploadLog chan imageUploadLog) {
 	}
 }
 
+// Upload will upload docker images defined in metadata to remote registry.
 func Upload(cli client.APIClient, imagesMetadata *config.ImagesMetadata) {
 	var wg sync.WaitGroup
 	numberOfTasks := len(imagesMetadata.Images)
