@@ -42,7 +42,7 @@ for platform in "${PLATFORMS[@]}"; do
         OUTPUT_NAME+='.exe'
     fi
 
-    env GOOS="${GOOS}" GOARCH="${GOARCH}" go build -o "${OUTPUT_NAME}" "${PACKAGE}"
+    env GOOS="${GOOS}" GOARCH="${GOARCH}" go build -o "${GOPATH}/bin/${OUTPUT_NAME}" "${PACKAGE}"
     if [[ "${?}" -ne 0 ]]; then
         echo 'An error has occurred! Aborting the script execution...'
         exit 1
