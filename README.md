@@ -1,5 +1,8 @@
 # docku
 
+[![Build Status](https://travis-ci.org/piotrpersona/docku.svg?branch=master)](https://travis-ci.org/piotrpersona/docku)
+[![Go Report Card](https://goreportcard.com/badge/github.com/piotrpersona/docku)](https://goreportcard.com/report/github.com/piotrpersona/docku)
+
 Upload images to remote registry at the speed of light ⚡️
 
 ![docku](images/docku.png)
