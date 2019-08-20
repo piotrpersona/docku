@@ -12,6 +12,16 @@ Upload images to remote registry at the speed of light ⚡️
 Download latest release from:
 https://github.com/piotrpersona/docku/releases
 
+```bash
+curl -fsSL -o /usr/local/bin/docku https://github.com/piotrpersona/docku/releases/download/<RELEASE>/docku-<OS>-<ARCH> && chmod +x /usr/local/bin/docku
+```
+
+e.g.:
+
+```bash
+curl -o /usr/local/bin/docku https://github.com/piotrpersona/docku/releases/download/v1.0.2/docku-darwin-amd64 && chmod +x /usr/local/bin/docku
+```
+
 ## Run
 
 ```bash
