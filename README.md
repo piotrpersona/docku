@@ -5,6 +5,8 @@
 
 Upload images to remote registry at the speed of light ⚡️
 
+![docku-arch](https://raw.githubusercontent.com/piotrpersona/docku/master/svg/docku-arch.svg?sanitize=true)
+
 ![docku](images/docku.png)
 
 ## Configuration
