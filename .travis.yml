@@ -1,0 +1,13 @@
+---
+language: go
+before_deploy:
+  - ./build.sh
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: $GOPATH/bin/docku-*
+  skip_cleanup: true
+  on:
+    tags: true
+
