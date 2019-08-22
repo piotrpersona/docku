@@ -9,10 +9,10 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "docker-upload [config]",
+	Use:   "docku",
 	Short: "Upload images to docker registry",
 	Long: `Provide docker images config file containing source images
- and destination registry.`,
+and destination registry.`,
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		app.Run(args[0])
