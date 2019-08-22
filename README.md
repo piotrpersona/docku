@@ -19,7 +19,7 @@ curl -fsSL -o /usr/local/bin/docku https://github.com/piotrpersona/docku/release
 e.g.:
 
 ```bash
-curl -o /usr/local/bin/docku https://github.com/piotrpersona/docku/releases/download/v1.0.2/docku-darwin-amd64 && chmod +x /usr/local/bin/docku
+curl -fsSL -o /usr/local/bin/docku https://github.com/piotrpersona/docku/releases/download/1.1.0/docku-darwin-amd64 && chmod +x /usr/local/bin/docku
 ```
 
 ## Run
