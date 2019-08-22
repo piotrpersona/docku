@@ -42,18 +42,17 @@ docker run \
 
 Provide images config
 
-```json
-{
-  "registry": "localhost:5000",
-  "images": {
-    "nginx": {
-      "registry": "docker.io",
-      "tag": "latest"
-    },
-    "alpine": {
-      "registry": "docker.io",
-      "tag": "3.9"
-    }
-  }
-}
+```yaml
+---
+registry: "localhost:5000"
+images:
+  nginx:
+    registry: "docker.io"
+    tag: "latest"
+  alpine:
+    registry: "docker.io"
+    tag: "3.9"
+
 ```
+
+Supported extensions: `.json .yaml .yml`
