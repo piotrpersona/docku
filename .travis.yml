@@ -1,5 +1,6 @@
 ---
 language: go
+go_import_path: github.com/piotrpersona
 before_deploy:
   - ./build.sh
 deploy:
@@ -10,4 +11,3 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-
