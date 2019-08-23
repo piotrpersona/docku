@@ -7,7 +7,7 @@ function __help() {
     echo
     echo "Usage"
     echo
-    echo "./build.sh"
+    echo "./build.sh [PLATFORMS...]"
     echo
     echo "Options:"
     echo
@@ -37,11 +37,17 @@ EOM
 }
 
 function __handle_args() {
+    declare -a CUSTOM_PLATFORMS
     while [[ "${#}" -gt 0 ]]; do
         case "${1}" in
             -h|--help) __help; exit 0;;
+            -*) echo "Unkown options: ${1}"; exit 1;;
+            *) CUSTOM_PLATFORMS+=( "${1}" ); shift 1;
         esac
     done
+
+    [[ -z "${CUSTOM_PLATFORMS}" ]] \
+        || PLATFORMS=( "${CUSTOM_PLATFORMS[@]}" )
 }
 
 function __build_docku() {
@@ -55,8 +61,7 @@ function __build_docku() {
             OUTPUT_NAME+='.exe'
         fi
 
-        env GOOS="${GOOS}" GOARCH="${GOARCH}" go build \
-            -ldflags "${LDFLAGS}" \
+        env GOOS="${GOOS}" GOARCH="${GOARCH}" go build -ldflags "${LDFLAGS}" \
             -o "${GOPATH}/bin/${OUTPUT_NAME}" "${PACKAGE}"
         if [[ "${?}" -ne 0 ]]; then
             echo 'An error has occurred! Aborting the script execution...'
