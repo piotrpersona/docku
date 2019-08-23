@@ -24,18 +24,20 @@ curl -fsSL -o /usr/local/bin/docku https://github.com/piotrpersona/docku/release
 
 ## Run
 
+Standalone
+
 ```bash
 docku config.json
 ```
 
-Docker (TBD)
+Docker
 
 ```bash
 docker run \
     --volume /var/run/docker.sock:/var/run/docker.sock \
-    --volume "${config}:/config.json" \
+    --volume "${config}:/config.yaml" \
     --network host \
-    piotrpersona/docku config.json "${@}"
+    piotrpersona/docku:latest config.yaml "${@}"
 ```
 
 ## Configuration

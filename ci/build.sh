@@ -55,7 +55,7 @@ function __build_docku() {
         local PLATFORM_SPLIT=( ${platform//\// } )
         local GOOS=${PLATFORM_SPLIT[0]}
         local GOARCH="${PLATFORM_SPLIT[1]}"
-        local OUTPUT_NAME="${PACKAGE_NAME}-${GOOS}-${GOARCH}"
+        local OUTPUT_NAME="${OUTPUT_NAME:-"${PACKAGE_NAME}-${GOOS}-${GOARCH}"}"
 
         if [[ "${GOOS}" = "windows" ]]; then
             OUTPUT_NAME+='.exe'
