@@ -2,7 +2,7 @@
 language: go
 go_import_path: github.com/piotrpersona
 before_deploy:
-  - ./build.sh
+  - ./ci/build.sh
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
@@ -11,3 +11,5 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+after_deploy:
+  - ./ci/docker.sh
