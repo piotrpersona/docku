@@ -55,14 +55,13 @@ function __build_docku() {
         local PLATFORM_SPLIT=( ${platform//\// } )
         local GOOS=${PLATFORM_SPLIT[0]}
         local GOARCH="${PLATFORM_SPLIT[1]}"
-        local OUTPUT_NAME="${OUTPUT_NAME:-"${PACKAGE_NAME}-${GOOS}-${GOARCH}"}"
-
+        local output_name="${OUTPUT_NAME:-"${PACKAGE_NAME}-${GOOS}-${GOARCH}"}"
         if [[ "${GOOS}" = "windows" ]]; then
-            OUTPUT_NAME+='.exe'
+            output_name+='.exe'
         fi
 
         env GOOS="${GOOS}" GOARCH="${GOARCH}" go build -ldflags "${LDFLAGS}" \
-            -o "${GOPATH}/bin/${OUTPUT_NAME}" "${PACKAGE}"
+            -o "${GOPATH}/bin/${output_name}" "${PACKAGE}"
         if [[ "${?}" -ne 0 ]]; then
             echo 'An error has occurred! Aborting the script execution...'
             exit 1
