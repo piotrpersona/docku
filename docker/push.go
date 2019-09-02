@@ -1,6 +1,7 @@
 package docker
 
 import (
+	"github.com/piotrpersona/docku/config"
 	"context"
 	"fmt"
 	"io/ioutil"
@@ -9,9 +10,9 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func push(cli client.APIClient, image string) (stream []byte, err error) {
+func push(cli client.APIClient, image config.ImageURL) (stream []byte, err error) {
 	fmt.Printf("Pushing image %s\n", image)
-	streamReader, err := cli.ImagePush(context.Background(), image,
+	streamReader, err := cli.ImagePush(context.Background(), string(image),
 		types.ImagePushOptions{
 			All:          true,
 			RegistryAuth: "123",

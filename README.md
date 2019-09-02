@@ -46,14 +46,10 @@ Provide images config
 
 ```yaml
 ---
-registry: "localhost:5000"
+registry: localhost:5000
 images:
-  nginx:
-    registry: "docker.io"
-    tag: "latest"
-  alpine:
-    registry: "docker.io"
-    tag: "3.9"
+  - nginx:latest
+  - docker.io/alpine:3.9
 
 ```
 

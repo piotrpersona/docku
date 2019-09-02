@@ -2,6 +2,7 @@ package docker
 
 import (
 	"fmt"
+	"os"
 	"sync"
 
 	"github.com/docker/docker/client"
@@ -9,7 +10,7 @@ import (
 )
 
 type imageUploadLog struct {
-	sourceName, targetName string
+	sourceName, targetName config.ImageURL
 	stream                 uploadStream
 	err                    dockerError
 }
@@ -24,7 +25,7 @@ type uploadStream struct {
 
 func uploadImage(
 	cli client.APIClient, sourceImage,
-	destinationImage string,
+	destinationImage config.ImageURL,
 	wg *sync.WaitGroup,
 	uploadLog chan imageUploadLog,
 ) {
@@ -66,10 +67,14 @@ func Upload(cli client.APIClient, imagesMetadata *config.ImagesMetadata) {
 	numberOfTasks := len(imagesMetadata.Images)
 	uploadLog := make(chan imageUploadLog, numberOfTasks)
 	wg.Add(numberOfTasks)
-	registry := imagesMetadata.Registry
-	for imageName, imageMeta := range imagesMetadata.Images {
-		sourceImage := ImageURL(imageMeta.Registry, imageName, imageMeta.Tag)
-		destinationImage := ImageURL(registry, imageName, imageMeta.Tag)
+	for _, image := range imagesMetadata.Images {
+		err := image.Validate()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		sourceImage := image
+		destinationImage := image.ReplaceRegistry(imagesMetadata.Registry)
 		go uploadImage(
 			cli, sourceImage, destinationImage, &wg, uploadLog)
 	}
